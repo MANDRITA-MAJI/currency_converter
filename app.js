@@ -1,7 +1,11 @@
-const BASE_URL ="https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies";
+const BASE_URL = "https://open.er-api.com/v6/latest/";
 
 let dropdowns = document.querySelectorAll("select");
 let btn=document.querySelector("button");
+let fromCurr =document.querySelector(".from select")
+let toCurr =document.querySelector(".to select")
+let msg = document.querySelector(".msg");
+let amount = document.querySelector(".amount input")
 
 
 for (let select of dropdowns) {
@@ -30,14 +34,34 @@ let updateFlag = (element) =>{
     img.src = newSource
 }
 
-btn.addEventListener("click",(evt)=>{
-    evt.preventDefault();
-    let amount = document.querySelector(".amount input")
+let updateExchangeRate = async()=>{
+    msg.classList.toggle("after");
+    
     let amtVal= amount.value;
     if(amtVal=="" || amtVal < 0){
-        amtVal=1;
-        amount.value=1;
-        amount.innerText = "";
+        // amtVal=1;
+        // amount.value=1;
+        amount.value =""
+        return
     }
-    console.log(amtVal)
+    
+    const URL = `${BASE_URL}${fromCurr.value}`;
+    let response = await fetch(URL)
+    let data= await response.json();
+    let rate = data.rates[toCurr.value];
+    console.log(rate);
+    const result = (amtVal * rate).toFixed(2);
+    msg.innerText = `${amtVal} ${fromCurr.value} = ${result} ${toCurr.value}`;
+
+}
+
+btn.addEventListener("click",(evt)=>{
+    evt.preventDefault();
+    updateExchangeRate();
 })
+
+window.addEventListener("load" ,()=>{
+    amount.value =""
+    updateExchangeRate();
+})
+
