@@ -92,7 +92,7 @@ form select{
     font-size: 1.1rem;
     border-radius: 15px;
     transition: 1s;
-    background-color: #fdafc9;
+    background-color: #fccfde;
 }
 form button{
     height: 3rem;
@@ -112,5 +112,5 @@ form input:hover{
 
 .after{
     transition: 1s;
-    background-color: #4ff2fd;
+    background-color: #c5f8fc;
 }
