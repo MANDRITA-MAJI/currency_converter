@@ -114,3 +114,8 @@ form input:hover{
     transition: 1s;
     background-color: #c5f8fc;
 }
+.exchange i {
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+

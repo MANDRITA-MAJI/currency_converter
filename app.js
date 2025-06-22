@@ -6,6 +6,7 @@ let fromCurr =document.querySelector(".from select")
 let toCurr =document.querySelector(".to select")
 let msg = document.querySelector(".msg");
 let amount = document.querySelector(".amount input")
+let exchange = document.querySelector(".exchange i")
 
 
 for (let select of dropdowns) {
@@ -34,13 +35,25 @@ let updateFlag = (element) =>{
     img.src = newSource
 }
 
+exchange.addEventListener("click",()=>{
+    let tempVal = fromCurr.value;
+    fromCurr.value = toCurr.value;
+    toCurr.value = tempVal;
+
+    updateFlag(fromCurr);
+    updateFlag(toCurr);
+
+    // Also update exchange rate
+    updateExchangeRate();
+})
+
 let updateExchangeRate = async()=>{
     msg.classList.toggle("after");
     
     let amtVal= amount.value;
     if(amtVal=="" || amtVal < 0){
-        // amtVal=1;
-        // amount.value=1;
+        amtVal=1;
+        amount.value=1;
         amount.value =""
         return
     }
@@ -50,7 +63,7 @@ let updateExchangeRate = async()=>{
     let data= await response.json();
     let rate = data.rates[toCurr.value];
     console.log(rate);
-    const result = (amtVal * rate).toFixed(2);
+    const result = (amtVal * rate).toFixed(3);
     msg.innerText = `${amtVal} ${fromCurr.value} = ${result} ${toCurr.value}`;
 
 }
@@ -61,7 +74,6 @@ btn.addEventListener("click",(evt)=>{
 })
 
 window.addEventListener("load" ,()=>{
-    amount.value =""
+    amount.value =1;
     updateExchangeRate();
 })
-
