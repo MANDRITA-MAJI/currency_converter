@@ -35,7 +35,7 @@ let updateFlag = (element) =>{
 }
 
 let updateExchangeRate = async()=>{
-   
+    msg.classList.toggle("after");
     
     let amtVal= amount.value;
     if(amtVal=="" || amtVal < 0){
