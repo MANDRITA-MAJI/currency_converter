@@ -1,6 +1,8 @@
 const BASE_URL ="https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies";
 
 let dropdowns = document.querySelectorAll("select");
+let btn=document.querySelector("button");
+
 
 for (let select of dropdowns) {
   select.innerHTML = ""; // Clear old hardcoded <option> if needed
@@ -27,3 +29,15 @@ let updateFlag = (element) =>{
     let img = element.parentElement.querySelector("img");
     img.src = newSource
 }
+
+btn.addEventListener("click",(evt)=>{
+    evt.preventDefault();
+    let amount = document.querySelector(".amount input")
+    let amtVal= amount.value;
+    if(amtVal=="" || amtVal < 0){
+        amtVal=1;
+        amount.value=1;
+        amount.innerText = "";
+    }
+    console.log(amtVal)
+})
